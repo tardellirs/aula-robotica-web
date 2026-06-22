@@ -92,9 +92,10 @@ Reconecte a USB.
 > 📸 **Entrega 2.2** — Print mostrando, no **gráfico**, a linha azul (distância) **abaixo**
 > da linha verde (limite) com a tela em **🔴 ALERTA** — e o **LED piscando** na foto.
 
-> 🔧 **Mudança exata (faça e observe):** no arquivo `atividade2-parte2.html`, ache a linha
-> `}, 200);` (perto do fim) e troque **200** por **100**. Salve e atualize a página: o LED
-> passa a piscar **duas vezes mais rápido**. (200 e 100 são milissegundos entre as piscadas.)
+> 🔧 **(Opcional — só na versão do seu computador)** Abra o arquivo `atividade2-parte2.html`,
+> ache a linha `}, 200);` (perto do fim) e troque **200** por **100**: o LED passa a piscar
+> **duas vezes mais rápido** (são os milissegundos entre as piscadas). *Pelo link do professor
+> não dá para editar — isto é só para quem tem o arquivo no PC.*
 
 ### 2.3 Fechamento
 

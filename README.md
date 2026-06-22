@@ -6,9 +6,9 @@
 ![Sem instalação](https://img.shields.io/badge/aluno-sem%20instalar%20nada-16a34a)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-Atividade prática de **Robótica** (IFSP): os alunos conectam sensores e LEDs de um **Arduino
-sem Wi-Fi** a uma **página web**, controlando e visualizando tudo pelo **navegador** — sem
-instalar nada (sem Python, sem `pip`, sem servidor).
+Uma **trilha de robótica** (IFSP) em **4 atividades**: o aluno liga sensores, LEDs e um teclado
+a um **Arduino sem Wi-Fi** e controla tudo por uma **página web**, no navegador — **sem instalar
+nada** (sem Python, sem `pip`, sem servidor).
 
 > Material livre para reuso por outros professores. Sinta-se à vontade para adaptar.
 
@@ -19,60 +19,59 @@ GitHub Pages ──https──► Navegador do aluno (Chrome/Edge) ──Web Ser
  (só entrega a página)        (roda no PC do aluno)             (100% local)
 ```
 
-O Arduino fala pela **USB**. A página, aberta no **Chrome/Edge**, usa a **Web Serial API**
-para conversar direto com o Arduino — **não há servidor**. O GitHub Pages só **entrega o
-arquivo**; a conexão com o Arduino é local, no PC de cada aluno (funciona com a turma toda ao
-mesmo tempo, e até offline depois de carregada).
+O Arduino fala pela **USB**. A página, no **Chrome/Edge**, usa a **Web Serial API** para
+conversar direto com o Arduino — **não há servidor**. O GitHub Pages só **entrega a página**; a
+conexão com o Arduino é local, no PC de cada aluno (funciona com a turma toda junto, e até
+offline depois de carregada).
 
-## As atividades
+## A trilha — 4 atividades
 
-- **[ATIVIDADE-1.md](ATIVIDADE-1.md) — LED e sensor de luz (LDR)**
-  - Parte 1: um botão liga/desliga o LED (pino 13).
-  - Parte 2: ler o LDR e mostrar o valor.
-  - Parte 3: luz automática (acende no escuro) com **calibração**.
-- **[ATIVIDADE-2.md](ATIVIDADE-2.md) — Sensor ultrassônico**
-  - Parte 1: mostrar a distância de um objeto (com **gráfico ao vivo**).
-  - Parte 2: o **potenciômetro** ajusta a distância em que o **LED pisca** (alarme), com
-    gráfico de distância × limite.
-- **[ATIVIDADE-3.md](ATIVIDADE-3.md) — Sequência de 5 LEDs**
-  - Monte uma sequência na página (passos × LEDs) e rode em **loop**, com velocidade ajustável.
-- **[ATIVIDADE-4.md](ATIVIDADE-4.md) — Jogo da cobrinha**
-  - Um **teclado matricial 4×4** controla a cobrinha que roda no navegador (2/8/4/6 = direções).
+Faça na ordem: cada uma usa o que a anterior ensinou.
 
-A montagem do circuito é a **primeira etapa de cada parte** e vai crescendo. Cada parte tem
-checkpoints (📸/✍️) registrados na **[FOLHA-DE-ENTREGA.md](FOLHA-DE-ENTREGA.md)**. Guia do
-professor em **[PLANO-DA-AULA.md](PLANO-DA-AULA.md)**.
+| # | Atividade | O que você monta e faz | O que aprende |
+|---|---|---|---|
+| **1** | [LED + sensor de luz (LDR)](ATIVIDADE-1.md) | botão liga/desliga o LED → lê o LDR → luz automática (acende no escuro) | ler um sensor e controlar um LED pela web |
+| **2** | [Sensor ultrassônico](ATIVIDADE-2.md) | distância num gráfico ao vivo → potenciômetro ajusta um alarme que pisca | medir distância e ajustar um limite |
+| **3** | [Sequência de 5 LEDs](ATIVIDADE-3.md) | monta uma sequência de luzes e roda em **loop**, com velocidade | listas e repetição (loop) |
+| **4** | [Jogo da cobrinha](ATIVIDADE-4.md) | um **teclado 4×4** controla a cobrinha que roda no navegador | controle físico de um software |
 
-## Como usar
+Cada atividade começa **montando o circuito** e tem checkpoints (📸 foto / ✍️ resposta) para o
+aluno registrar na **[FOLHA-DE-ENTREGA.md](FOLHA-DE-ENTREGA.md)**.
 
-1. **Carregar o sketch** (Arduino IDE): `atividade1`…`atividade4` na pasta `sketches/`
-   (Placa: **Arduino Uno**; a Atividade 4 precisa da biblioteca **Keypad**).
-2. **Abrir a página** no **Chrome/Edge**:
-   - **GitHub Pages** (recomendado): publique o repo (Settings → Pages) e abra
-     `https://SEU_USUARIO.github.io/aula-robotica-web/web/`.
-   - **Offline**: `cd web && python3 -m http.server 8000` e abra `http://localhost:8000/`.
+## Começando (3 passos)
+
+1. **Carregar o programa** no Arduino (Arduino IDE): abra o sketch da atividade na pasta
+   `sketches/` (Placa: **Arduino Uno**) e clique em **Carregar**. *(A Atividade 4 precisa da
+   biblioteca **Keypad** — o handout explica.)*
+2. **Abrir a página** no **Chrome ou Edge**: o professor passa um **link** (GitHub Pages). A
+   página inicial **lista as 4 atividades** — clique na que você vai fazer.
 3. Clicar em **🔌 Conectar ao Arduino** e escolher a porta.
 
-> ⚠️ Só um programa por vez usa a porta: **feche o Monitor Serial** da Arduino IDE antes de
-> usar a página.
+> ⚠️ **Regra de ouro:** só um programa por vez usa a porta. **Feche o Monitor Serial** da
+> Arduino IDE antes de usar a página.
 
 ## Hardware (Arduino Uno)
 
-| Componente | Pino |
-|---|---|
-| LED + resistor 220–330 Ω (Atividade 1) | 13 |
-| LED + resistor 220–330 Ω (Atividade 2) | 8 |
-| 5 LEDs + resistores 220–330 Ω (Atividade 3) | 2, 3, 4, 5, 6 |
-| Teclado matricial 4×4 — biblioteca Keypad (Atividade 4) | 9, 8, 7, 6, 5, 4, 3, 2 |
-| LDR (divisor com resistor 10 kΩ) | A0 |
-| HC-SR04 — TRIG / ECHO | 9 / 10 |
-| Potenciômetro | A1 |
+| Componente | Pino | Atividade |
+|---|---|---|
+| LED + resistor 220–330 Ω | 13 | 1 |
+| LDR (divisor com resistor 10 kΩ) | A0 | 1 |
+| HC-SR04 — TRIG / ECHO | 9 / 10 | 2 |
+| Potenciômetro | A1 | 2 |
+| LED + resistor 220–330 Ω | 8 | 2 |
+| 5 LEDs + resistores 220–330 Ω | 2, 3, 4, 5, 6 | 3 |
+| Teclado matricial 4×4 (biblioteca Keypad) | 9, 8, 7, 6, 5, 4, 3, 2 | 4 |
 
 ## Requisitos
 
-- **Arduino Uno** + sensores + **Arduino IDE** (para subir o sketch).
+- **Arduino Uno** + componentes + **Arduino IDE** (para subir o sketch).
 - **Google Chrome** ou **Microsoft Edge** (o Web Serial não funciona em Firefox/Safari/celular).
-- Aluno **não instala nada** no computador.
+- O aluno **não instala nada** no computador.
+
+---
+
+**Professor:** o guia completo (preparação, tempos, lista de materiais, solução de problemas e
+como publicar no GitHub Pages) está em **[PLANO-DA-AULA.md](PLANO-DA-AULA.md)**.
 
 ## Licença
 

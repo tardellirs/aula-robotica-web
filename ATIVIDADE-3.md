@@ -14,7 +14,7 @@ sem parar. É assim que se fazem efeitos de luz (letreiros, "sobe e desce", pisc
 em **➜ Carregar**.
 
 > 💬 **Como funciona:** quem guarda a sequência e faz o loop é a **página**. A cada passo,
-> ela manda ao Arduino um "mapa" de 5 dígitos (ex.: `10110` = LED 1 e 3 e 4 acesos). O
+> ela manda ao Arduino um "mapa" de 5 dígitos, lido da esquerda (ex.: `10110` = LEDs **1, 3 e 4**). O
 > Arduino só acende/apaga os 5 LEDs conforme o mapa.
 
 ---

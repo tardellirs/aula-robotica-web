@@ -117,9 +117,13 @@ ______________________________________________________
 \
 \
 
-### Entrega 4.3 — ✍️ O caminho de uma tecla até a cobrinha
+### Entrega 4.3 — ✍️ Sobre o jogo
 
-Tecla → Arduino → Serial (USB) → navegador → jogo. E por que a cobrinha não dá meia-volta?
+(a) O caminho de uma tecla até a cobrinha virar (teclado → Arduino → Serial/USB → navegador):
+
+______________________________________________________
+
+(b) Por que a cobrinha não consegue dar meia-volta de uma vez? (dica: função `setDir`)
 
 ______________________________________________________
 \

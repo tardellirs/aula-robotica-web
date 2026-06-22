@@ -22,8 +22,12 @@ procure **"Keypad"** (de *Mark Stanley / Alexander Brevig*) e clique em **Instal
 
 ## Parte 1 — Montar o teclado 4×4
 
-O teclado tem **8 pinos** numa fileira. Ligue-os, **da esquerda para a direita**, nos pinos do
-Arduino **9, 8, 7, 6, 5, 4, 3, 2** (em sequência) — com o Arduino **desconectado**:
+> 🧹 Se a protoboard ainda tiver peças das atividades anteriores, **desmonte** primeiro — o
+> teclado usa os pinos 9 a 2 e pode conflitar (o ultrassônico usava o 9 e o 10).
+
+O teclado tem **8 pinos** numa fileira. Segure-o com as **teclas viradas para você**; ligue os
+8 pinos, **da esquerda para a direita**, nos pinos do Arduino **9, 8, 7, 6, 5, 4, 3, 2** (em
+sequência), com o Arduino **desconectado**:
 
 | Pino do teclado (da esquerda) | Arduino |
 |---|---|

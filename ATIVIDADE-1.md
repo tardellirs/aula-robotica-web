@@ -27,9 +27,8 @@ vai indicar **um** destes caminhos:
 - **No próprio computador:** dentro da pasta `web`, rode `python3 -m http.server 8000` e abra
   `http://localhost:8000/atividade1-parte1.html`.
 
-> ⚠️ **Regra de ouro:** só **um** programa por vez pode usar a porta do Arduino. Se o
-> **Monitor Serial** da Arduino IDE estiver aberto, **feche-o** antes de usar a página
-> (senão a página não conecta).
+> ⚠️ **Regra de ouro:** só **um** programa por vez usa a porta. **Feche o Monitor Serial** da
+> Arduino IDE antes de usar a página (senão a página não conecta).
 
 ---
 
@@ -59,9 +58,6 @@ Conecte o Arduino na USB de novo.
 1. Abra a página **`atividade1-parte1.html`** (no Chrome/Edge).
 2. Clique em **🔌 Conectar ao Arduino** e escolha a porta na janelinha.
 3. Clique no botão grande do LED: ele **liga** e **desliga** o LED (pino 13).
-
-> 💬 O botão chama `enviarComando("1")` para acender e `enviarComando("0")` para apagar.
-> Esse `1`/`0` viaja pela USB até o Arduino, que liga/desliga o pino 13.
 
 > 📸 **Entrega 1.1** — Uma **foto do LED (pino 13) aceso na protoboard** (com a página no
 > fundo, mostrando o botão verde "LED ligado").
