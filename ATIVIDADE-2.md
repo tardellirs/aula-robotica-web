@@ -13,7 +13,8 @@ Agora você vai **medir a distância** de um objeto com o sensor ultrassônico e
 **Carregue o programa da Atividade 2.** Na Arduino IDE, abra
 `sketches/atividade2/atividade2.ino` e clique em **➜ Carregar**. (Serve para as duas partes.)
 
-> 💡 Pode **reaproveitar a protoboard** da Atividade 1. O LED você reusa na Parte 2.
+> 💡 Pode **reaproveitar a protoboard** da Atividade 1 (onde estava o LDR). Aqui o LED é um
+> LED **na protoboard** (pino 8) — diferente da Atividade 1, que usava o LED embutido (pino 13).
 
 ---
 
@@ -61,7 +62,7 @@ Sem desmontar o sensor, adicione (com o Arduino desconectado):
 | ponta do outro lado | GND |
 | **pino do meio** | A1 |
 
-**LED** (igual ao da Atividade 1):
+**LED** na protoboard (com resistor):
 
 ```
   pino 8 ──[ resistor 220–330 Ω ]──►|──── GND

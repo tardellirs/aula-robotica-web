@@ -8,19 +8,19 @@
    O que ele faz:
      1) LÊ o sensor de luz (LDR) no pino A0 e ENVIA pela Serial (USB),
         no formato JSON:   {"ldr":512}
-     2) RECEBE comandos para o LED (na protoboard, pino 8):
+     2) RECEBE comandos para o LED EMBUTIDO da placa (pino 13):
             '1'  -> acende o LED
             '0'  -> apaga o LED
 
-   Na PARTE 1 só o LED está montado (a página ignora o valor do LDR).
+   Na PARTE 1 usamos o LED EMBUTIDO (pino 13); a página ignora o valor do LDR.
    A partir da PARTE 2 o LDR entra no circuito.
 
    PINAGEM:
-     LED ...... pino 8  (com resistor de 220-330 ohms até o GND)
+     LED ...... pino 13 (LED embutido da placa - nao precisa de fio)
      LDR ...... A0      (divisor de tensão com resistor de 10k)
    ===================================================================== */
 
-const int PINO_LED = 8;    // LED na protoboard
+const int PINO_LED = 13;   // LED embutido da placa (nao precisa de fio)
 const int PINO_LDR = A0;   // sensor de luz
 
 void setup() {
