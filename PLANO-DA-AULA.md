@@ -16,6 +16,8 @@ nada** (sem Python, sem `pip`, sem Flask).
   que o LED pisca (alarme de aproximação).
 - **Atividade 3 (5 LEDs):** montar uma **sequência** que roda em **loop**, com velocidade
   ajustável (efeito de letreiro / pisca-pisca).
+- **Atividade 4 (jogo da cobrinha):** um **teclado matricial 4×4** controla a cobrinha que
+  roda no navegador (controle físico → jogo).
 
 > A montagem do circuito é a **primeira etapa de cada parte** e vai crescendo ao longo da
 > atividade.
@@ -50,6 +52,7 @@ isso:
 | Ativ. 2 · Parte 1 | montar ultrassônico + distância | 25 min |
 | Ativ. 2 · Parte 2 | potenciômetro + LED piscando | 30 min |
 | Ativ. 3 | 5 LEDs + sequência em loop | 30–40 min |
+| Ativ. 4 | jogo da cobrinha (teclado 4×4) | 30–40 min |
 
 Cabe em ~2h ou em duas aulas (1: Atividade 1; 2: Atividade 2).
 
@@ -66,6 +69,7 @@ Cabe em ~2h ou em duas aulas (1: Atividade 1; 2: Atividade 2).
 | **LED** + resistor 220–330 Ω | pino 13 | Ativ. 1 |
 | **LED** + resistor 220–330 Ω | pino 8 | Ativ. 2 (P2) |
 | **5 LEDs** + resistores 220–330 Ω | pinos 2, 3, 4, 5, 6 | Ativ. 3 |
+| **Teclado matricial 4×4** (biblioteca Keypad) | pinos 9, 8, 7, 6, 5, 4, 3, 2 | Ativ. 4 |
 | **LDR** + resistor 10 kΩ | A0 (divisor) | Ativ. 1 (P2–P3) |
 | **HC-SR04** (ultrassônico) | TRIG=9, ECHO=10, VCC=5V, GND | Ativ. 2 (P1) |
 | **Potenciômetro** 10 kΩ | A1 (meio); 5V e GND (pontas) | Ativ. 2 (P2) |
@@ -98,6 +102,8 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
 - Atividade 1: `sketches/atividade1/atividade1.ino`
 - Atividade 2: `sketches/atividade2/atividade2.ino`
 - Atividade 3: `sketches/atividade3/atividade3.ino`
+- Atividade 4: `sketches/atividade4/atividade4.ino` — **antes**, instale a biblioteca **Keypad**
+  (Arduino IDE → Ferramentas → Gerenciar Bibliotecas → "Keypad", de Mark Stanley)
 
 ### 5. ⚠️ Teste antes, num PC do IFSP
 
@@ -120,6 +126,8 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
   momento para falar de "limiar" e de mapear o potenciômetro (0–1023) para centímetros.
 - **Atividade 3:** a página guarda a sequência e a percorre em loop; o `% seq.length` é o que
   faz a contagem "dar a volta". O Arduino recebe um mapa de 5 dígitos por passo (ex.: `10110`).
+- **Atividade 4:** o teclado só **envia a tecla**; o jogo inteiro está no navegador. Boa deixa
+  para falar de **entrada digital** (teclado matricial) e de **separar o controle da lógica**.
 - **Conceito-chave para fechar:** sem Wi-Fi, os dados vêm pela **USB/Serial**; quem mostra a
   página é o **computador (navegador)**, não o Arduino.
 
@@ -136,6 +144,8 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
 | Distância mostra **-1** | Nada no alcance (timeout do HC-SR04). Normal; aproxime um objeto. |
 | LED não acende | Confira o **resistor** e a **polaridade** (perna maior = +). Na Atividade 1 o LED fica no **pino 13**; na Atividade 2, no **pino 8**. (No pino 13, o LED embutido também deve acender.) |
 | Página "travou" ao reconectar | Atualize (F5) e clique em Conectar de novo. |
+| Ativ. 4: `Keypad.h: No such file` ao compilar | Falta instalar a biblioteca **Keypad** (Gerenciar Bibliotecas). |
+| Ativ. 4: direções trocadas / teclas erradas | Ordem dos 8 pinos invertida. Confira 9,8,7,6,5,4,3,2 da esquerda p/ a direita. |
 
 ---
 
@@ -146,7 +156,8 @@ aula-robotica-web/
 ├── sketches/
 │   ├── atividade1/atividade1.ino     # LDR -> JSON; LED no pino 13 <- '1'/'0'
 │   ├── atividade2/atividade2.ino     # ultrassônico+pot -> JSON; LED <- '1'/'0'
-│   └── atividade3/atividade3.ino     # 5 LEDs <- mapa "10110"
+│   ├── atividade3/atividade3.ino     # 5 LEDs <- mapa "10110"
+│   └── atividade4/atividade4.ino     # teclado 4x4 -> tecla (jogo da cobrinha)
 ├── web/                              # páginas (Web Serial — Chrome/Edge)
 │   ├── style.css                     # estilo compartilhado
 │   ├── serial.js                     # ajudante: conectarArduino() e enviarComando()
@@ -157,10 +168,12 @@ aula-robotica-web/
 │   ├── atividade2-parte1.html        # mostra a distância (gráfico)
 │   ├── atividade2-parte2.html        # potenciômetro ajusta o alarme (LED pisca)
 │   ├── atividade3.html               # sequenciador: 5 LEDs em loop
+│   ├── atividade4.html               # jogo da cobrinha (teclado 4x4)
 │   └── chart.umd.min.js              # Chart.js (cópia local, offline)
 ├── ATIVIDADE-1.md                    # handout do aluno (Entregas 1.1–1.3)
 ├── ATIVIDADE-2.md                    # handout do aluno (Entregas 2.1–2.3)
 ├── ATIVIDADE-3.md                    # handout do aluno (Entregas 3.1–3.3)
+├── ATIVIDADE-4.md                    # handout do aluno (Entregas 4.1–4.3)
 ├── FOLHA-DE-ENTREGA.md               # folha para o grupo entregar
 ├── GABARITO.md                       # respostas (NÃO vai pro GitHub — .gitignore)
 ├── PLANO-DA-AULA.md                  # este guia

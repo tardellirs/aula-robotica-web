@@ -96,3 +96,13 @@ button.led.on { background: #16a34a; }
 .controles button { font-size: 15px; padding: 9px 18px; margin: 4px; border: none; border-radius: 9px; color: #fff; background: #334155; cursor: pointer; }
 .controles button.principal { background: #16a34a; }
 .controles button.parar { background: #dc2626; }
+
+/* Jogo da cobrinha (Atividade 4) */
+.jogo { display: inline-block; background: #1e293b; border-radius: 14px; padding: 14px; margin: 10px auto; }
+canvas#tela { background: #0b1220; border-radius: 8px; display: block; max-width: 100%; height: auto; }
+.placar { font-size: 22px; margin: 10px 0; }
+.placar b { color: #4ade80; }
+.legenda { color: #94a3b8; font-size: 15px; max-width: 470px; margin: 8px auto 0; line-height: 1.8; }
+.legenda b { color: #e2e8f0; }
+.tecla { display: inline-block; min-width: 18px; padding: 1px 7px; background: #334155; color: #e2e8f0;
+         border-radius: 5px; font-weight: bold; font-family: monospace; }

@@ -100,3 +100,27 @@ ______________________________________________________
 ______________________________________________________
 \
 \
+
+---
+
+# Atividade 4 — Jogo da Cobrinha
+
+### Entrega 4.1 — 📸 Teclado 4×4 montado + print do jogo (teclas 2/4/6/8 movem a cobrinha)
+
+\
+\
+\
+
+### Entrega 4.2 — 📸 Tela de "Fim!" com a sua maior pontuação
+
+\
+\
+\
+
+### Entrega 4.3 — ✍️ O caminho de uma tecla até a cobrinha
+
+Tecla → Arduino → Serial (USB) → navegador → jogo. E por que a cobrinha não dá meia-volta?
+
+______________________________________________________
+\
+\

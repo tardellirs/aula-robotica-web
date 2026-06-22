@@ -36,6 +36,8 @@ mesmo tempo, e até offline depois de carregada).
     gráfico de distância × limite.
 - **[ATIVIDADE-3.md](ATIVIDADE-3.md) — Sequência de 5 LEDs**
   - Monte uma sequência na página (passos × LEDs) e rode em **loop**, com velocidade ajustável.
+- **[ATIVIDADE-4.md](ATIVIDADE-4.md) — Jogo da cobrinha**
+  - Um **teclado matricial 4×4** controla a cobrinha que roda no navegador (2/8/4/6 = direções).
 
 A montagem do circuito é a **primeira etapa de cada parte** e vai crescendo. Cada parte tem
 checkpoints (📸/✍️) registrados na **[FOLHA-DE-ENTREGA.md](FOLHA-DE-ENTREGA.md)**. Guia do
@@ -43,8 +45,8 @@ professor em **[PLANO-DA-AULA.md](PLANO-DA-AULA.md)**.
 
 ## Como usar
 
-1. **Carregar o sketch** (Arduino IDE): `atividade1`, `atividade2` ou `atividade3` na pasta
-   `sketches/` (Placa: **Arduino Uno**).
+1. **Carregar o sketch** (Arduino IDE): `atividade1`…`atividade4` na pasta `sketches/`
+   (Placa: **Arduino Uno**; a Atividade 4 precisa da biblioteca **Keypad**).
 2. **Abrir a página** no **Chrome/Edge**:
    - **GitHub Pages** (recomendado): publique o repo (Settings → Pages) e abra
      `https://SEU_USUARIO.github.io/aula-robotica-web/web/`.
@@ -61,6 +63,7 @@ professor em **[PLANO-DA-AULA.md](PLANO-DA-AULA.md)**.
 | LED + resistor 220–330 Ω (Atividade 1) | 13 |
 | LED + resistor 220–330 Ω (Atividade 2) | 8 |
 | 5 LEDs + resistores 220–330 Ω (Atividade 3) | 2, 3, 4, 5, 6 |
+| Teclado matricial 4×4 — biblioteca Keypad (Atividade 4) | 9, 8, 7, 6, 5, 4, 3, 2 |
 | LDR (divisor com resistor 10 kΩ) | A0 |
 | HC-SR04 — TRIG / ECHO | 9 / 10 |
 | Potenciômetro | A1 |
