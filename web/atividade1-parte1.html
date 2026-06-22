@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade 1 · Parte 1 — Botão do LED</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>💡 Atividade 1 · Parte 1</h1>
+  <div class="subtitulo">Ligar e desligar o LED da protoboard pela página</div>
+
+  <div><button class="conectar" onclick="conectar()">🔌 Conectar ao Arduino</button></div>
+
+  <!-- Um único botão que liga e desliga -->
+  <button class="led" id="botaoLed" onclick="alternar()">⚫ LED desligado — clique para ligar</button>
+
+  <div class="dica">
+    Clique em <b>Conectar</b>, escolha a porta do Arduino e depois clique no botão do LED.
+    O LED na protoboard (pino 8) deve acender e apagar.
+  </div>
+
+  <script src="serial.js"></script>
+  <script>
+    // Conecta ao Arduino. Nesta parte ignoramos os dados que chegam (só controlamos o LED).
+    async function conectar() {
+      await conectarArduino(function (linha) { /* nada nesta parte */ });
+    }
+
+    // Guarda se o LED está aceso e alterna a cada clique
+    let aceso = false;
+    function alternar() {
+      aceso = !aceso;                       // inverte: ligado <-> desligado
+      enviarComando(aceso ? "1" : "0");     // envia '1' (acende) ou '0' (apaga)
+
+      const botao = document.getElementById("botaoLed");
+      botao.classList.toggle("on", aceso);
+      botao.innerText = aceso
+        ? "💡 LED ligado — clique para desligar"
+        : "⚫ LED desligado — clique para ligar";
+    }
+  </script>
+</body>
+</html>

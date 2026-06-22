@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade 1 · Parte 3 — Luz automática</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🌗 Atividade 1 · Parte 3</h1>
+  <div class="subtitulo">Luz automática: o LED apaga no claro e acende no escuro</div>
+
+  <div><button class="conectar" onclick="conectar()">🔌 Conectar ao Arduino</button></div>
+
+  <div class="cartao">
+    <div class="rotulo">Sensor de luz (LDR)</div>
+    <div class="valor amarelo" id="ldr">--</div>
+  </div>
+  <div class="barra-fundo"><div class="barra" id="barra"></div></div>
+
+  <!-- Controle de calibração: o aluno arrasta para escolher o ponto de corte -->
+  <div class="calibragem">
+    <div class="rotulo">Calibração — acende quando a luz fica abaixo de
+      <span class="destaque" id="limiarTxt">500</span></div>
+    <input type="range" id="slider" min="0" max="1023" value="500">
+  </div>
+
+  <div class="status" id="status">—</div>
+
+  <div class="dica">
+    Arraste o controle para <b>calibrar</b>: ache o valor em que o LED acende só quando
+    você tapa o sensor (escuro) e apaga com a luz da sala (claro).
+  </div>
+
+  <script src="serial.js"></script>
+  <script>
+    // ----- Calibração: o slider define o limiar (ponto de corte) -----
+    let limiar = 500;
+    const slider = document.getElementById("slider");
+    slider.oninput = function () {
+      limiar = parseInt(slider.value);
+      document.getElementById("limiarTxt").innerText = limiar;
+    };
+
+    // ----- Lógica da luz automática -----
+    let ledAceso = null;   // lembra o estado para só enviar comando quando MUDA
+    async function conectar() {
+      await conectarArduino(function (linha) {
+        let dados;
+        try { dados = JSON.parse(linha); } catch (e) { return; }
+
+        document.getElementById("ldr").innerText = dados.ldr;
+        document.getElementById("barra").style.width = (dados.ldr / 1023 * 100) + "%";
+
+        // Está escuro se o valor do LDR for menor ou igual ao limiar -> acende o LED
+        const deveAcender = dados.ldr <= limiar;
+
+        if (deveAcender !== ledAceso) {        // mudou de estado?
+          ledAceso = deveAcender;
+          enviarComando(deveAcender ? "1" : "0");
+          document.getElementById("status").innerText = deveAcender ? "🌑 ESCURO — LED aceso" : "☀️ CLARO — LED apagado";
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Gabarito (uso interno do professor — não publicar)
+GABARITO.md
+
+# Ambientes virtuais / Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Lixo do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários do Office (folha de entrega)
+~$*
+
+# Builds da Arduino IDE
+build/
+*.hex
