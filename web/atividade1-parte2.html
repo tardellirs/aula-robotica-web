@@ -12,6 +12,34 @@
 
   <div><button class="conectar" onclick="conectar()">🔌 Conectar ao Arduino</button></div>
 
+  <details class="esquema" open>
+    <summary>🔌 Como montar o circuito (LED no pino 13 + sensor LDR)</summary>
+    <table>
+      <tr><td><span class="fio" style="background:#38bdf8"></span><b>Pino 13</b> → resistor → <b>LED</b> (+); <b>LED</b> (−) → <b>GND</b></td></tr>
+      <tr><td><span class="fio" style="background:#ef4444"></span><b>5V</b> → <b>LDR</b> → ponto do meio</td></tr>
+      <tr><td><span class="fio" style="background:#facc15"></span>ponto do meio → resistor <b>10 kΩ</b> → <b>GND</b></td></tr>
+      <tr><td><span class="fio" style="background:#4ade80"></span>ponto do meio → <b>A0</b></td></tr>
+    </table>
+    <svg viewBox="0 0 420 210" role="img" aria-label="Divisor de tensão do LDR">
+      <rect x="12" y="30" width="56" height="28" rx="8" fill="#334155"/>
+      <text x="40" y="49" fill="#fff" font-size="13" text-anchor="middle" font-family="Arial">5V</text>
+      <line x1="68" y1="44" x2="110" y2="44" stroke="#ef4444" stroke-width="3"/>
+      <rect x="110" y="30" width="78" height="28" rx="4" fill="#0b1220" stroke="#facc15"/>
+      <text x="149" y="49" fill="#facc15" font-size="13" text-anchor="middle" font-family="Arial">LDR</text>
+      <line x1="188" y1="44" x2="320" y2="44" stroke="#e2e8f0" stroke-width="3"/>
+      <circle cx="250" cy="44" r="4" fill="#fff"/>
+      <rect x="320" y="30" width="70" height="28" rx="8" fill="#334155"/>
+      <text x="355" y="49" fill="#fff" font-size="13" text-anchor="middle" font-family="Arial">A0</text>
+      <line x1="250" y1="44" x2="250" y2="104" stroke="#e2e8f0" stroke-width="3"/>
+      <rect x="214" y="104" width="72" height="28" rx="4" fill="#0b1220" stroke="#facc15"/>
+      <text x="250" y="123" fill="#facc15" font-size="12" text-anchor="middle" font-family="Arial">10 kΩ</text>
+      <line x1="250" y1="132" x2="250" y2="168" stroke="#94a3b8" stroke-width="3"/>
+      <rect x="222" y="168" width="56" height="28" rx="8" fill="#334155"/>
+      <text x="250" y="187" fill="#fff" font-size="13" text-anchor="middle" font-family="Arial">GND</text>
+    </svg>
+    <div class="nota-circuito">O "ponto do meio" é onde o LDR e o resistor de 10 kΩ se encontram — é ele que vai ao A0. Monte com o Arduino <b>desconectado</b>.</div>
+  </details>
+
   <!-- Valor do LDR + barra que enche conforme a luz -->
   <div class="cartao">
     <div class="rotulo">Sensor de luz (LDR)</div>

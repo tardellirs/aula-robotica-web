@@ -12,6 +12,31 @@
 
   <div><button class="conectar" onclick="conectar()">🔌 Conectar ao Arduino</button></div>
 
+  <details class="esquema" open>
+    <summary>🔌 Como montar o circuito (LED no pino 13)</summary>
+    <table>
+      <tr><td><span class="fio" style="background:#38bdf8"></span><b>Pino 13</b> → resistor 220–330 Ω → <b>LED</b> (perna maior +)</td></tr>
+      <tr><td><span class="fio" style="background:#94a3b8"></span><b>LED</b> (perna menor −) → <b>GND</b></td></tr>
+    </table>
+    <svg viewBox="0 0 560 120" role="img" aria-label="LED ligado ao pino 13">
+      <rect x="10" y="40" width="96" height="34" rx="9" fill="#334155"/>
+      <text x="58" y="62" fill="#fff" font-size="13" text-anchor="middle" font-family="Arial">Pino 13</text>
+      <line x1="106" y1="57" x2="168" y2="57" stroke="#38bdf8" stroke-width="3"/>
+      <rect x="168" y="43" width="118" height="28" rx="4" fill="#0b1220" stroke="#facc15"/>
+      <text x="227" y="61" fill="#facc15" font-size="12" text-anchor="middle" font-family="Arial">resistor 220–330 Ω</text>
+      <line x1="286" y1="57" x2="338" y2="57" stroke="#e2e8f0" stroke-width="3"/>
+      <circle cx="360" cy="57" r="20" fill="#16a34a" stroke="#e2e8f0" stroke-width="2"/>
+      <text x="360" y="61" fill="#fff" font-size="12" text-anchor="middle" font-family="Arial">LED</text>
+      <text x="340" y="34" fill="#94a3b8" font-size="13" text-anchor="middle" font-family="Arial">+</text>
+      <text x="384" y="34" fill="#94a3b8" font-size="13" text-anchor="middle" font-family="Arial">−</text>
+      <line x1="382" y1="57" x2="454" y2="57" stroke="#94a3b8" stroke-width="3"/>
+      <rect x="454" y="40" width="96" height="34" rx="9" fill="#334155"/>
+      <text x="502" y="62" fill="#fff" font-size="13" text-anchor="middle" font-family="Arial">GND</text>
+      <text x="280" y="106" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="Arial">A perna maior (+) fica no lado do resistor; a menor (−) no GND.</text>
+    </svg>
+    <div class="nota-circuito">O pino 13 também tem o LED embutido da placa — ele acende junto. Monte com o Arduino <b>desconectado</b>.</div>
+  </details>
+
   <!-- Um único botão que liga e desliga -->
   <button class="led" id="botaoLed" onclick="alternar()">⚫ LED desligado — clique para ligar</button>
 
