@@ -60,7 +60,7 @@ Cabe em ~2h ou em duas aulas (1: Atividade 1; 2: Atividade 2).
 |---|---|---|
 | Arduino **Uno** + cabo USB | — | tudo |
 | Protoboard + jumpers | — | tudo |
-| **LED embutido** (já vem na placa) | pino 13 | Ativ. 1 |
+| **LED** + resistor 220–330 Ω | pino 13 | Ativ. 1 |
 | **LED** + resistor 220–330 Ω | pino 8 | Ativ. 2 (P2) |
 | **LDR** + resistor 10 kΩ | A0 (divisor) | Ativ. 1 (P2–P3) |
 | **HC-SR04** (ultrassônico) | TRIG=9, ECHO=10, VCC=5V, GND | Ativ. 2 (P1) |
@@ -109,7 +109,7 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
   conecta". Mande fechar.
 - **Conectar a cada página:** ao trocar de parte/página, é preciso clicar em **Conectar** e
   escolher a porta de novo (proteção do navegador — só acessa a USB com um clique do usuário).
-- **Atividade 1:** o `1`/`0` que o botão envia é o mesmo que liga o pino 13 (LED embutido). Na Parte 3, o
+- **Atividade 1:** o `1`/`0` que o botão envia é o mesmo que liga o pino 13 (o LED da protoboard; o LED embutido acende junto). Na Parte 3, o
   "só enviar quando muda de estado" evita inundar a porta.
 - **Atividade 2:** o piscar é feito **pela página** (alterna `1`/`0` a cada 200 ms). Bom
   momento para falar de "limiar" e de mapear o potenciômetro (0–1023) para centímetros.
@@ -127,7 +127,7 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
 | "Porta ocupada" / não conecta | **Monitor Serial** aberto. Feche-o. |
 | Conecta mas **nada muda** | Sketch não carregado, ou velocidade ≠ 9600. Recarregue o `.ino` e clique em Conectar de novo. |
 | Distância mostra **-1** | Nada no alcance (timeout do HC-SR04). Normal; aproxime um objeto. |
-| LED não acende (Atividade 2) | Confira o **resistor** e a **polaridade** (perna maior = +, no pino 8). Na Atividade 1 o LED é o **embutido** (pino 13), não precisa de fio. |
+| LED não acende | Confira o **resistor** e a **polaridade** (perna maior = +). Na Atividade 1 o LED fica no **pino 13**; na Atividade 2, no **pino 8**. (No pino 13, o LED embutido também deve acender.) |
 | Página "travou" ao reconectar | Atualize (F5) e clique em Conectar de novo. |
 
 ---
@@ -137,7 +137,7 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
 ```
 aula-robotica-web/
 ├── sketches/
-│   ├── atividade1/atividade1.ino     # LDR -> JSON; LED embutido (pino 13) <- '1'/'0'
+│   ├── atividade1/atividade1.ino     # LDR -> JSON; LED no pino 13 <- '1'/'0'
 │   └── atividade2/atividade2.ino     # ultrassônico+pot -> JSON; LED <- '1'/'0'
 ├── web/                              # páginas (Web Serial — Chrome/Edge)
 │   ├── style.css                     # estilo compartilhado

@@ -19,7 +19,7 @@ Cole o print/foto ou escreva a resposta de cada uma, na ordem.
 
 # Atividade 1 — LED e sensor de luz (LDR)
 
-### Entrega 1.1 — 📸 Foto do LED embutido (pino 13) aceso (clicando no botão da página)
+### Entrega 1.1 — 📸 Foto do LED (pino 13) aceso na protoboard (clicando no botão da página)
 
 \
 \

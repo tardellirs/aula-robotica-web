@@ -35,23 +35,36 @@ vai indicar **um** destes caminhos:
 
 ## Parte 1 — Ligar e desligar o LED pela página
 
-### 1.1 O LED desta parte (não precisa montar nada)
+### 1.1 Montar o circuito (o LED no pino 13)
 
-Nesta primeira parte usamos o **LED embutido da placa** — aquele pequenininho que já vem
-soldado no Arduino, ligado ao **pino 13** (procure a marca **"L"** perto dele). Ou seja:
-**não precisa montar nada ainda!** A montagem na protoboard começa na **Parte 2**, com o LDR.
+Monte com o Arduino **desconectado** da USB:
+
+```
+  pino 13 ──[ resistor 220–330 Ω ]──►|──── GND
+                                     LED
+```
+
+- A perna **maior** do LED é o **+** → fica do lado do resistor (que vai ao **pino 13**).
+- A perna **menor** é o **−** → vai no **GND**.
+
+> ⚠️ **Sempre com resistor!** Sem ele o LED queima.
+
+> 💡 O **pino 13** também tem um **LED embutido** na própria placa (marcado com "L"), então
+> ele acende **junto** com o seu LED da protoboard — uma forma fácil de conferir se funcionou.
+
+Conecte o Arduino na USB de novo.
 
 ### 1.2 Usar a página
 
 1. Abra a página **`atividade1-parte1.html`** (no Chrome/Edge).
 2. Clique em **🔌 Conectar ao Arduino** e escolha a porta na janelinha.
-3. Clique no botão grande do LED: ele **liga** e **desliga** o LED embutido (pino 13).
+3. Clique no botão grande do LED: ele **liga** e **desliga** o LED (pino 13).
 
 > 💬 O botão chama `enviarComando("1")` para acender e `enviarComando("0")` para apagar.
-> Esse `1`/`0` viaja pela USB até o Arduino, que liga/desliga o pino 13 (o LED embutido).
+> Esse `1`/`0` viaja pela USB até o Arduino, que liga/desliga o pino 13.
 
-> 📸 **Entrega 1.1** — Uma **foto do LED embutido (pino 13) aceso** (com a página no fundo,
-> mostrando o botão verde "LED ligado").
+> 📸 **Entrega 1.1** — Uma **foto do LED (pino 13) aceso na protoboard** (com a página no
+> fundo, mostrando o botão verde "LED ligado").
 
 ---
 
@@ -126,7 +139,7 @@ Arraste o controle até achar o valor em que:
 ## ✅ Checklist da Atividade 1
 
 - [ ] Carreguei o `atividade1.ino` no Arduino
-- [ ] Parte 1: liguei/desliguei o LED embutido (pino 13) pela página
+- [ ] Parte 1: montei o LED no pino 13 e liguei/desliguei pela página
 - [ ] Parte 2: montei o LDR e vi o valor mudando na página
 - [ ] Parte 3: o LED acende no escuro e apaga no claro
 - [ ] Calibrei o limiar com o controle deslizante

@@ -27,7 +27,7 @@ mesmo tempo, e até offline depois de carregada).
 ## As atividades
 
 - **[ATIVIDADE-1.md](ATIVIDADE-1.md) — LED e sensor de luz (LDR)**
-  - Parte 1: um botão liga/desliga o LED embutido (pino 13).
+  - Parte 1: um botão liga/desliga o LED (pino 13).
   - Parte 2: ler o LDR e mostrar o valor.
   - Parte 3: luz automática (acende no escuro) com **calibração**.
 - **[ATIVIDADE-2.md](ATIVIDADE-2.md) — Sensor ultrassônico**
@@ -55,7 +55,7 @@ professor em **[PLANO-DA-AULA.md](PLANO-DA-AULA.md)**.
 
 | Componente | Pino |
 |---|---|
-| LED embutido (Atividade 1) | 13 |
+| LED + resistor 220–330 Ω (Atividade 1) | 13 |
 | LED + resistor 220–330 Ω (Atividade 2) | 8 |
 | LDR (divisor com resistor 10 kΩ) | A0 |
 | HC-SR04 — TRIG / ECHO | 9 / 10 |
