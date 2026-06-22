@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atividade 2 · Parte 2 — Alarme de distância</title>
   <link rel="stylesheet" href="style.css">
+  <script src="chart.umd.min.js"></script>
 </head>
 <body>
   <h1>🚨 Atividade 2 · Parte 2</h1>
@@ -12,7 +13,28 @@
 
   <div><button class="conectar" onclick="conectar()">🔌 Conectar ao Arduino</button></div>
 
-  <details class="esquema" open>
+  <div>
+    <div class="cartao">
+      <div class="rotulo">📏 Distância</div>
+      <div class="valor azul"><span id="dist">--</span> <span class="unidade">cm</span></div>
+    </div>
+    <div class="cartao">
+      <div class="rotulo">🎛️ Piscar quando passar de</div>
+      <div class="valor verde"><span id="limite">--</span> <span class="unidade">cm</span></div>
+    </div>
+  </div>
+
+  <div class="status" id="status">—</div>
+
+  <div class="grafico"><canvas id="grafico"></canvas></div>
+
+  <div class="dica">
+    Gire o <b>potenciômetro</b> para escolher a distância de alerta (cartão verde).
+    Quando um objeto chega <b>mais perto</b> que esse valor, o LED <b>pisca</b>.
+    É um sensor de ré / alarme de aproximação!
+  </div>
+
+  <details class="esquema">
     <summary>🔌 Como montar o circuito (ultrassônico + potenciômetro + LED)</summary>
     <table>
       <tr><td>📍 <b>HC-SR04</b>: já montado na Parte 1 (VCC→5V, TRIG→9, ECHO→10, GND→GND)</td></tr>
@@ -35,29 +57,33 @@
     <div class="nota-circuito">O LED no pino 8 é igual ao da Atividade 1, só que no pino 8. Monte com o Arduino <b>desconectado</b>.</div>
   </details>
 
-  <div>
-    <div class="cartao">
-      <div class="rotulo">📏 Distância</div>
-      <div class="valor azul"><span id="dist">--</span> <span class="unidade">cm</span></div>
-    </div>
-    <div class="cartao">
-      <div class="rotulo">🎛️ Piscar quando passar de</div>
-      <div class="valor verde"><span id="limite">--</span> <span class="unidade">cm</span></div>
-    </div>
-  </div>
-
-  <div class="status" id="status">—</div>
-
-  <div class="dica">
-    Gire o <b>potenciômetro</b> para escolher a distância de alerta (cartão verde).
-    Quando um objeto chega <b>mais perto</b> que esse valor, o LED <b>pisca</b>.
-    É um sensor de ré / alarme de aproximação!
-  </div>
-
   <script src="serial.js"></script>
   <script>
     let limiteCm = 10;     // distância de alerta (vem do potenciômetro)
     let dentro = false;    // tem objeto mais perto que o limite?
+
+    // ----- gráfico ao vivo: distância (azul) x limite do potenciômetro (verde tracejado) -----
+    const chart = new Chart(document.getElementById("grafico"), {
+      type: "line",
+      data: { labels: [], datasets: [
+        { label: "Distância (cm)", data: [], borderColor: "#38bdf8", tension: 0.3, pointRadius: 0 },
+        { label: "Limite (cm)",    data: [], borderColor: "#4ade80", borderDash: [6, 4], pointRadius: 0 }
+      ]},
+      options: { animation: false, scales: { y: { min: 0, suggestedMax: 50 } },
+                 plugins: { legend: { labels: { color: "#e2e8f0" } } } }
+    });
+    let passo = 0;
+    function addPonto(dist, limite) {
+      chart.data.labels.push(passo++);
+      chart.data.datasets[0].data.push(dist > 0 ? dist : null);
+      chart.data.datasets[1].data.push(limite);
+      if (chart.data.labels.length > 40) {
+        chart.data.labels.shift();
+        chart.data.datasets[0].data.shift();
+        chart.data.datasets[1].data.shift();
+      }
+      chart.update();
+    }
 
     // ----- Recebe os dados do Arduino: {"dist":23.4,"pot":780} -----
     async function conectar() {
@@ -70,6 +96,7 @@
         // Converte o potenciômetro (0..1023) em uma distância de 2 a 50 cm
         limiteCm = Math.round(2 + (dados.pot / 1023) * 48);
         document.getElementById("limite").innerText = limiteCm;
+        addPonto(dados.dist, limiteCm);
 
         // Tem algo mais perto que o limite? (dist = -1 significa "nada detectado")
         dentro = (dados.dist > 0 && dados.dist < limiteCm);

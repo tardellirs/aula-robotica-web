@@ -43,13 +43,13 @@ Resposta: ______________________________________________
 
 # Atividade 2 — Sensor ultrassônico
 
-### Entrega 2.1 — 📸 Distância na página (um print com o objeto longe e outro perto)
+### Entrega 2.1 — 📸 Gráfico da distância subindo/descendo ao aproximar e afastar a mão
 
 \
 \
 \
 
-### Entrega 2.2 — 📸 LED piscando / tela 🔴 ALERTA com o objeto perto (e o limite escolhido no potenciômetro)
+### Entrega 2.2 — 📸 Gráfico com a linha azul (distância) abaixo da verde (limite), tela 🔴 ALERTA e LED piscando
 
 \
 \

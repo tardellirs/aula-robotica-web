@@ -12,7 +12,22 @@
 
   <div><button class="conectar" onclick="conectar()">🔌 Conectar ao Arduino</button></div>
 
-  <details class="esquema" open>
+  <!-- Valor do LDR + barra que enche conforme a luz -->
+  <div class="cartao">
+    <div class="rotulo">Sensor de luz (LDR)</div>
+    <div class="valor amarelo" id="ldr">--</div>
+  </div>
+  <div class="barra-fundo"><div class="barra" id="barra"></div></div>
+
+  <!-- O botão do LED continua aqui (da Parte 1) -->
+  <div><button class="led" id="botaoLed" onclick="alternar()">⚫ LED desligado — clique para ligar</button></div>
+
+  <div class="dica">
+    Tape o LDR com a mão: o número e a barra <b>caem</b>. Aponte uma lanterna: <b>sobem</b>.
+    O valor vai de 0 (escuro) a 1023 (muita luz).
+  </div>
+
+  <details class="esquema">
     <summary>🔌 Como montar o circuito (LED no pino 13 + sensor LDR)</summary>
     <table>
       <tr><td><span class="fio" style="background:#38bdf8"></span><b>Pino 13</b> → resistor → <b>LED</b> (+); <b>LED</b> (−) → <b>GND</b></td></tr>
@@ -39,21 +54,6 @@
     </svg>
     <div class="nota-circuito">O "ponto do meio" é onde o LDR e o resistor de 10 kΩ se encontram — é ele que vai ao A0. Monte com o Arduino <b>desconectado</b>.</div>
   </details>
-
-  <!-- Valor do LDR + barra que enche conforme a luz -->
-  <div class="cartao">
-    <div class="rotulo">Sensor de luz (LDR)</div>
-    <div class="valor amarelo" id="ldr">--</div>
-  </div>
-  <div class="barra-fundo"><div class="barra" id="barra"></div></div>
-
-  <!-- O botão do LED continua aqui (da Parte 1) -->
-  <div><button class="led" id="botaoLed" onclick="alternar()">⚫ LED desligado — clique para ligar</button></div>
-
-  <div class="dica">
-    Tape o LDR com a mão: o número e a barra <b>caem</b>. Aponte uma lanterna: <b>sobem</b>.
-    O valor vai de 0 (escuro) a 1023 (muita luz).
-  </div>
 
   <script src="serial.js"></script>
   <script>

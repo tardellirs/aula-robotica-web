@@ -12,7 +12,27 @@
 
   <div><button class="conectar" onclick="conectar()">🔌 Conectar ao Arduino</button></div>
 
-  <details class="esquema" open>
+  <div class="cartao">
+    <div class="rotulo">Sensor de luz (LDR)</div>
+    <div class="valor amarelo" id="ldr">--</div>
+  </div>
+  <div class="barra-fundo"><div class="barra" id="barra"></div></div>
+
+  <!-- Controle de calibração: o aluno arrasta para escolher o ponto de corte -->
+  <div class="calibragem">
+    <div class="rotulo">Calibração — acende quando a luz fica abaixo de
+      <span class="destaque" id="limiarTxt">500</span></div>
+    <input type="range" id="slider" min="0" max="1023" value="500">
+  </div>
+
+  <div class="status" id="status">—</div>
+
+  <div class="dica">
+    Arraste o controle para <b>calibrar</b>: ache o valor em que o LED acende só quando
+    você tapa o sensor (escuro) e apaga com a luz da sala (claro).
+  </div>
+
+  <details class="esquema">
     <summary>🔌 Como montar o circuito (LED no pino 13 + sensor LDR)</summary>
     <table>
       <tr><td><span class="fio" style="background:#38bdf8"></span><b>Pino 13</b> → resistor → <b>LED</b> (+); <b>LED</b> (−) → <b>GND</b></td></tr>
@@ -39,26 +59,6 @@
     </svg>
     <div class="nota-circuito">Mesmo circuito da Parte 2. Monte com o Arduino <b>desconectado</b>.</div>
   </details>
-
-  <div class="cartao">
-    <div class="rotulo">Sensor de luz (LDR)</div>
-    <div class="valor amarelo" id="ldr">--</div>
-  </div>
-  <div class="barra-fundo"><div class="barra" id="barra"></div></div>
-
-  <!-- Controle de calibração: o aluno arrasta para escolher o ponto de corte -->
-  <div class="calibragem">
-    <div class="rotulo">Calibração — acende quando a luz fica abaixo de
-      <span class="destaque" id="limiarTxt">500</span></div>
-    <input type="range" id="slider" min="0" max="1023" value="500">
-  </div>
-
-  <div class="status" id="status">—</div>
-
-  <div class="dica">
-    Arraste o controle para <b>calibrar</b>: ache o valor em que o LED acende só quando
-    você tapa o sensor (escuro) e apaga com a luz da sala (claro).
-  </div>
 
   <script src="serial.js"></script>
   <script>

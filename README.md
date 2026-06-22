@@ -31,8 +31,9 @@ mesmo tempo, e até offline depois de carregada).
   - Parte 2: ler o LDR e mostrar o valor.
   - Parte 3: luz automática (acende no escuro) com **calibração**.
 - **[ATIVIDADE-2.md](ATIVIDADE-2.md) — Sensor ultrassônico**
-  - Parte 1: mostrar a distância de um objeto.
-  - Parte 2: o **potenciômetro** ajusta a distância em que o **LED pisca** (alarme).
+  - Parte 1: mostrar a distância de um objeto (com **gráfico ao vivo**).
+  - Parte 2: o **potenciômetro** ajusta a distância em que o **LED pisca** (alarme), com
+    gráfico de distância × limite.
 
 A montagem do circuito é a **primeira etapa de cada parte** e vai crescendo. Cada parte tem
 checkpoints (📸/✍️) registrados na **[FOLHA-DE-ENTREGA.md](FOLHA-DE-ENTREGA.md)**. Guia do

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atividade 2 · Parte 1 — Distância</title>
   <link rel="stylesheet" href="style.css">
+  <script src="chart.umd.min.js"></script>
 </head>
 <body>
   <h1>📏 Atividade 2 · Parte 1</h1>
@@ -12,7 +13,19 @@
 
   <div><button class="conectar" onclick="conectar()">🔌 Conectar ao Arduino</button></div>
 
-  <details class="esquema" open>
+  <div class="cartao">
+    <div class="rotulo">Distância</div>
+    <div class="valor azul"><span id="dist">--</span> <span class="unidade">cm</span></div>
+  </div>
+
+  <div class="grafico"><canvas id="grafico"></canvas></div>
+
+  <div class="dica">
+    Aproxime e afaste a mão (ou um objeto) da frente do sensor: o número muda.
+    Se aparecer <b>-1</b>, é porque não há nada dentro do alcance (mire em algo até ~1 metro).
+  </div>
+
+  <details class="esquema">
     <summary>🔌 Como montar o circuito (sensor ultrassônico HC-SR04)</summary>
     <table>
       <tr><td><span class="fio" style="background:#ef4444"></span>HC-SR04 <b>VCC</b></td><td>→ <b>5V</b></td></tr>
@@ -41,24 +54,35 @@
     <div class="nota-circuito">Monte sempre com o Arduino <b>desconectado</b> da USB.</div>
   </details>
 
-  <div class="cartao">
-    <div class="rotulo">Distância</div>
-    <div class="valor azul"><span id="dist">--</span> <span class="unidade">cm</span></div>
-  </div>
-
-  <div class="dica">
-    Aproxime e afaste a mão (ou um objeto) da frente do sensor: o número muda.
-    Se aparecer <b>-1</b>, é porque não há nada dentro do alcance (mire em algo até ~1 metro).
-  </div>
-
   <script src="serial.js"></script>
   <script>
+    // ----- gráfico ao vivo da distância (mostra a tendência; o número sozinho oscila muito) -----
+    const chart = new Chart(document.getElementById("grafico"), {
+      type: "line",
+      data: { labels: [], datasets: [
+        { label: "Distância (cm)", data: [], borderColor: "#38bdf8", tension: 0.3, pointRadius: 0 }
+      ]},
+      options: { animation: false, scales: { y: { min: 0, suggestedMax: 50 } },
+                 plugins: { legend: { labels: { color: "#e2e8f0" } } } }
+    });
+    let passo = 0;
+    function addPonto(dist) {
+      chart.data.labels.push(passo++);
+      chart.data.datasets[0].data.push(dist > 0 ? dist : null);   // -1 (nada detectado) vira um "buraco"
+      if (chart.data.labels.length > 40) {                         // janela dos últimos 40 pontos
+        chart.data.labels.shift();
+        chart.data.datasets[0].data.shift();
+      }
+      chart.update();
+    }
+
     // Cada linha é um JSON como {"dist":23.4,"pot":780}. Nesta parte usamos só a distância.
     async function conectar() {
       await conectarArduino(function (linha) {
         let dados;
         try { dados = JSON.parse(linha); } catch (e) { return; }
         document.getElementById("dist").innerText = dados.dist;
+        addPonto(dados.dist);
       });
     }
   </script>

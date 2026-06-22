@@ -37,14 +37,18 @@ Reconecte a USB.
 
 1. Abra **`atividade2-parte1.html`** (link do professor ou `http://localhost:8000/...`).
 2. Clique em **🔌 Conectar ao Arduino** e escolha a porta.
-3. Aproxime e afaste a mão na frente do sensor: a **distância em cm** muda na tela.
+3. Aproxime e afaste a mão na frente do sensor: a **distância em cm** muda na tela, e o
+   **gráfico ao vivo** desenha a curva da distância ao longo do tempo.
 
 > 💬 **Como funciona:** o sensor dispara um "pulso" de som e mede quanto tempo ele leva
 > para voltar — como um morcego. O Arduino transforma esse tempo em centímetros e envia em
 > JSON, ex.: `{"dist":23.4,"pot":780}`. (Se aparecer **-1**, não há nada no alcance.)
 
-> 📸 **Entrega 2.1** — Dois prints: um com o objeto **longe** e outro **perto** do sensor,
-> mostrando a distância mudando.
+> 💡 O valor "pula" bastante (o ultrassônico é um pouco "nervoso"). O **gráfico** ajuda a
+> enxergar a **tendência** — sobe quando você afasta a mão, desce quando aproxima.
+
+> 📸 **Entrega 2.1** — Print mostrando o **gráfico da distância** enquanto você aproxima e
+> afasta a mão (dá para ver a curva subir e descer).
 
 ---
 
@@ -78,13 +82,15 @@ Reconecte a USB.
 3. **Gire o potenciômetro**: o valor do cartão verde muda (de 2 a 50 cm).
 4. Aproxime um objeto. Quando ele fica **mais perto que o limite**, o **LED pisca** e a
    tela mostra **🔴 ALERTA**.
+5. No **gráfico** há duas linhas: a **azul** (distância) e a **verde tracejada** (limite).
+   Quando a linha azul **cai abaixo** da verde, é exatamente quando o LED começa a piscar!
 
 > 💬 **Como funciona:** a página transforma o potenciômetro (0 a 1023) em uma distância, e
 > compara com a medida do sensor. Se estiver mais perto, ela manda o LED piscar (alternando
 > `1` e `0` a cada 200 ms).
 
-> 📸 **Entrega 2.2** — Foto/print mostrando o **LED piscando** (ou a tela em 🔴 ALERTA) com
-> um objeto perto, e o cartão verde com o **limite** que você escolheu no potenciômetro.
+> 📸 **Entrega 2.2** — Print mostrando, no **gráfico**, a linha azul (distância) **abaixo**
+> da linha verde (limite) com a tela em **🔴 ALERTA** — e o **LED piscando** na foto.
 
 > 🔧 **Mudança exata (faça e observe):** no arquivo `atividade2-parte2.html`, ache a linha
 > `}, 200);` (perto do fim) e troque **200** por **100**. Salve e atualize a página: o LED
