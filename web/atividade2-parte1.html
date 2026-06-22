@@ -82,13 +82,24 @@
     let distSuave = null;
     function suaviza(atual, novo) { return atual === null ? novo : atual + SUAVIDADE * (novo - atual); }
 
+    // Filtro de MEDIANA: guarda as últimas leituras e usa a do meio.
+    // Isso descarta os "saltos" do ultrassônico (ex.: 20 -> 200 -> 20), que a média sozinha não tira.
+    const JANELA = 5;
+    let bufferDist = [];
+    function medianaDist(d) {
+      bufferDist.push(d);
+      if (bufferDist.length > JANELA) bufferDist.shift();
+      const ord = [...bufferDist].sort((a, b) => a - b);
+      return ord[Math.floor(ord.length / 2)];
+    }
+
     // Cada linha é um JSON como {"dist":23.4,"pot":780}. Nesta parte usamos só a distância.
     async function conectar() {
       await conectarArduino(function (linha) {
         let dados;
         try { dados = JSON.parse(linha); } catch (e) { return; }
         if (dados.dist > 0) {
-          distSuave = suaviza(distSuave, dados.dist);            // filtra o ruído
+          distSuave = suaviza(distSuave, medianaDist(dados.dist));   // mediana (tira saltos) + média (suaviza)
           document.getElementById("dist").innerText = distSuave.toFixed(1);
           addPonto(distSuave);
         } else {
