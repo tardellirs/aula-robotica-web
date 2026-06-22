@@ -62,6 +62,11 @@
     let limiteCm = 10;     // distância de alerta (vem do potenciômetro)
     let dentro = false;    // tem objeto mais perto que o limite?
 
+    // ----- filtro de suavização (média móvel exponencial): SUAVIDADE menor = mais suave -----
+    const SUAVIDADE = 0.25;
+    let distSuave = null, potSuave = null;
+    function suaviza(atual, novo) { return atual === null ? novo : atual + SUAVIDADE * (novo - atual); }
+
     // ----- gráfico ao vivo: distância (azul) x limite do potenciômetro (verde tracejado) -----
     const chart = new Chart(document.getElementById("grafico"), {
       type: "line",
@@ -69,7 +74,7 @@
         { label: "Distância (cm)", data: [], borderColor: "#38bdf8", tension: 0.3, pointRadius: 0 },
         { label: "Limite (cm)",    data: [], borderColor: "#4ade80", borderDash: [6, 4], pointRadius: 0 }
       ]},
-      options: { animation: false, scales: { y: { min: 0, suggestedMax: 50 } },
+      options: { animation: false, scales: { y: { min: 0, max: 250 } },   // escala fixa 0–250 cm
                  plugins: { legend: { labels: { color: "#e2e8f0" } } } }
     });
     let passo = 0;
@@ -91,15 +96,20 @@
         let dados;
         try { dados = JSON.parse(linha); } catch (e) { return; }
 
-        document.getElementById("dist").innerText = dados.dist;
-
-        // Converte o potenciômetro (0..1023) em uma distância de 2 a 50 cm
-        limiteCm = Math.round(2 + (dados.pot / 1023) * 48);
+        // suaviza o potenciômetro -> o limite muda devagar (sem tremer)
+        potSuave = suaviza(potSuave, dados.pot);
+        limiteCm = Math.round(2 + (potSuave / 1023) * 48);
         document.getElementById("limite").innerText = limiteCm;
-        addPonto(dados.dist, limiteCm);
 
-        // Tem algo mais perto que o limite? (dist = -1 significa "nada detectado")
-        dentro = (dados.dist > 0 && dados.dist < limiteCm);
+        if (dados.dist > 0) {
+          distSuave = suaviza(distSuave, dados.dist);   // filtra o ruído da distância
+          document.getElementById("dist").innerText = distSuave.toFixed(1);
+          dentro = (distSuave < limiteCm);              // alarme usa o valor já suavizado
+          addPonto(distSuave, limiteCm);
+        } else {
+          dentro = false;                               // nada detectado: longe
+          addPonto(null, limiteCm);
+        }
         if (!dentro) pararPisca();   // longe: garante o LED apagado
       });
     }
