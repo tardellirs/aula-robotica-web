@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade 3 · Sequência de LEDs</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🎬 Atividade 3 · Sequência de LEDs</h1>
+  <div class="subtitulo">Monte a sua sequência e rode em <b>loop</b> nos 5 LEDs</div>
+
+  <div><button class="conectar" onclick="conectar()">🔌 Conectar ao Arduino</button></div>
+
+  <!-- LEDs "ao vivo": acompanham o passo atual (funciona mesmo sem o Arduino) -->
+  <div class="leds-vivo">
+    <div class="led-vivo" id="led0"></div>
+    <div class="led-vivo" id="led1"></div>
+    <div class="led-vivo" id="led2"></div>
+    <div class="led-vivo" id="led3"></div>
+    <div class="led-vivo" id="led4"></div>
+  </div>
+
+  <!-- Grade da sequência (montada pelo JavaScript) -->
+  <div class="seq" id="seq"></div>
+
+  <div class="controles">
+    <button class="principal" onclick="iniciar()">▶ Iniciar loop</button>
+    <button class="parar" onclick="parar()">⏹ Parar</button>
+    <button onclick="addPasso()">+ Passo</button>
+    <button onclick="removePasso()">– Passo</button>
+    <button onclick="limpar()">Limpar</button>
+  </div>
+
+  <div class="controles">
+    Prontos:
+    <button onclick="preset('escadinha')">Escadinha</button>
+    <button onclick="preset('pingue')">Pingue-pongue</button>
+    <button onclick="preset('pisca')">Pisca tudo</button>
+  </div>
+
+  <div class="calibragem">
+    <div class="rotulo">Velocidade: <span class="destaque" id="velTxt">350</span> ms por passo</div>
+    <input type="range" id="vel" min="60" max="1000" value="350" step="10">
+  </div>
+
+  <div class="dica">
+    Cada <b>linha</b> é um passo; clique nos números <b>1–5</b> para escolher quais LEDs
+    acendem naquele passo. Aperte <b>Iniciar loop</b>: a sequência roda de cima para baixo
+    e <b>volta ao início</b>, sem parar. Use <b>+ Passo</b> para deixá-la mais longa.
+  </div>
+
+  <!-- Esquema de ligação (discreto, no fim) -->
+  <details class="esquema">
+    <summary>🔌 Como montar o circuito (5 LEDs)</summary>
+    <table>
+      <tr><td><span class="fio" style="background:#38bdf8"></span><b>Pino 2</b> → resistor → <b>LED 1</b> (+); <b>LED 1</b> (−) → <b>GND</b></td></tr>
+      <tr><td><span class="fio" style="background:#38bdf8"></span><b>Pino 3</b> → resistor → <b>LED 2</b> (+); <b>LED 2</b> (−) → <b>GND</b></td></tr>
+      <tr><td><span class="fio" style="background:#38bdf8"></span><b>Pino 4</b> → resistor → <b>LED 3</b> (+); <b>LED 3</b> (−) → <b>GND</b></td></tr>
+      <tr><td><span class="fio" style="background:#38bdf8"></span><b>Pino 5</b> → resistor → <b>LED 4</b> (+); <b>LED 4</b> (−) → <b>GND</b></td></tr>
+      <tr><td><span class="fio" style="background:#38bdf8"></span><b>Pino 6</b> → resistor → <b>LED 5</b> (+); <b>LED 5</b> (−) → <b>GND</b></td></tr>
+    </table>
+    <svg viewBox="0 0 560 120" role="img" aria-label="Um LED com resistor (repita para os 5 pinos)">
+      <rect x="6" y="40" width="120" height="34" rx="9" fill="#334155"/>
+      <text x="66" y="62" fill="#fff" font-size="13" text-anchor="middle" font-family="Arial">Pino 2…6</text>
+      <line x1="126" y1="57" x2="178" y2="57" stroke="#38bdf8" stroke-width="3"/>
+      <rect x="178" y="43" width="118" height="28" rx="4" fill="#0b1220" stroke="#facc15"/>
+      <text x="237" y="61" fill="#facc15" font-size="12" text-anchor="middle" font-family="Arial">resistor 220–330 Ω</text>
+      <line x1="296" y1="57" x2="338" y2="57" stroke="#e2e8f0" stroke-width="3"/>
+      <circle cx="360" cy="57" r="20" fill="#16a34a" stroke="#e2e8f0" stroke-width="2"/>
+      <text x="360" y="61" fill="#fff" font-size="12" text-anchor="middle" font-family="Arial">LED</text>
+      <text x="340" y="34" fill="#94a3b8" font-size="13" text-anchor="middle" font-family="Arial">+</text>
+      <text x="384" y="34" fill="#94a3b8" font-size="13" text-anchor="middle" font-family="Arial">−</text>
+      <line x1="382" y1="57" x2="454" y2="57" stroke="#94a3b8" stroke-width="3"/>
+      <rect x="454" y="40" width="96" height="34" rx="9" fill="#334155"/>
+      <text x="502" y="62" fill="#fff" font-size="13" text-anchor="middle" font-family="Arial">GND</text>
+      <text x="280" y="106" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="Arial">Repita isso para os 5 pinos (2, 3, 4, 5 e 6). Todos os "−" vão no mesmo GND.</text>
+    </svg>
+    <div class="nota-circuito">Cada LED com seu resistor. Monte com o Arduino <b>desconectado</b>.</div>
+  </details>
+
+  <script src="serial.js"></script>
+  <script>
+    const NUM_LEDS = 5;
+    let velocidade = 350;
+    let seq = [];                 // a sequência: lista de passos; cada passo = [5 booleanos]
+    let tocando = false, idx = 0, timer = null;
+
+    // ----- conectar (não bloqueia; se o aluno cancelar, segue só na tela) -----
+    function conectar() { conectarArduino(function () { /* não recebemos dados aqui */ }); }
+
+    // ----- padrão inicial: "escadinha" (1, 2, 3, 4, 5) -----
+    function padraoEscadinha() {
+      seq = [];
+      for (let i = 0; i < NUM_LEDS; i++) {
+        const passo = [false, false, false, false, false];
+        passo[i] = true;
+        seq.push(passo);
+      }
+    }
+
+    // ----- desenha a grade da sequência -----
+    function render() {
+      const div = document.getElementById("seq");
+      div.innerHTML = "";
+      seq.forEach(function (passo, r) {
+        const linha = document.createElement("div");
+        linha.className = "seq-linha";
+        const lab = document.createElement("span");
+        lab.className = "rotulo-passo";
+        lab.innerText = "Passo " + (r + 1);
+        linha.appendChild(lab);
+        passo.forEach(function (on, c) {
+          const b = document.createElement("button");
+          b.className = "cel" + (on ? " on" : "");
+          b.innerText = (c + 1);
+          b.onclick = function () { seq[r][c] = !seq[r][c]; render(); };
+          linha.appendChild(b);
+        });
+        div.appendChild(linha);
+      });
+    }
+
+    // ----- mostra um passo: acende os LEDs da tela e destaca a linha -----
+    function mostrarPasso(i, passo) {
+      const linhas = document.querySelectorAll(".seq-linha");
+      linhas.forEach(function (l, k) { l.classList.toggle("atual", k === i); });
+      for (let c = 0; c < NUM_LEDS; c++) {
+        document.getElementById("led" + c).classList.toggle("on", passo[c]);
+      }
+    }
+
+    // ----- o LOOP -----
+    function tick() {
+      const passo = seq[idx];
+      mostrarPasso(idx, passo);
+      // monta o "mapa" de 5 dígitos, ex.: [t,f,t,t,f] -> "10110"
+      const mapa = passo.map(function (b) { return b ? "1" : "0"; }).join("");
+      if (estaConectado()) enviarComando(mapa + "\n");   // só envia se houver Arduino
+      idx = (idx + 1) % seq.length;                       // volta ao início no fim
+    }
+
+    function iniciar() {
+      if (tocando || seq.length === 0) return;
+      tocando = true; idx = 0;
+      timer = setInterval(tick, velocidade);
+    }
+
+    function parar() {
+      tocando = false;
+      clearInterval(timer);
+      for (let c = 0; c < NUM_LEDS; c++) document.getElementById("led" + c).classList.remove("on");
+      document.querySelectorAll(".seq-linha").forEach(function (l) { l.classList.remove("atual"); });
+      if (estaConectado()) enviarComando("00000\n");      // apaga tudo
+    }
+
+    // ----- editar a sequência -----
+    function addPasso() { seq.push([false, false, false, false, false]); render(); }
+    function removePasso() { if (seq.length > 1) { seq.pop(); render(); } }
+    function limpar() { seq = seq.map(function () { return [false, false, false, false, false]; }); render(); }
+
+    function preset(nome) {
+      if (nome === "escadinha") {
+        padraoEscadinha();
+      } else if (nome === "pingue") {
+        seq = [];
+        [0, 1, 2, 3, 4, 3, 2, 1].forEach(function (i) {
+          const p = [false, false, false, false, false]; p[i] = true; seq.push(p);
+        });
+      } else if (nome === "pisca") {
+        seq = [[true, true, true, true, true], [false, false, false, false, false]];
+      }
+      render();
+    }
+
+    // ----- velocidade -----
+    const slider = document.getElementById("vel");
+    slider.oninput = function () {
+      velocidade = parseInt(slider.value);
+      document.getElementById("velTxt").innerText = velocidade;
+      if (tocando) { clearInterval(timer); timer = setInterval(tick, velocidade); }
+    };
+
+    // começa mostrando a "escadinha"
+    padraoEscadinha();
+    render();
+  </script>
+</body>
+</html>

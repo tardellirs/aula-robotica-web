@@ -55,3 +55,6 @@ async function enviarComando(texto) {
   await escritor.write(new TextEncoder().encode(texto));
   escritor.releaseLock();   // libera para a próxima escrita
 }
+
+// --- Diz se já há um Arduino conectado (para a página não tentar enviar sem conexão) ---
+function estaConectado() { return porta !== null; }

@@ -14,6 +14,8 @@ nada** (sem Python, sem `pip`, sem Flask).
   calibração.
 - **Atividade 2 (ultrassônico):** mostrar a distância → potenciômetro ajusta a distância em
   que o LED pisca (alarme de aproximação).
+- **Atividade 3 (5 LEDs):** montar uma **sequência** que roda em **loop**, com velocidade
+  ajustável (efeito de letreiro / pisca-pisca).
 
 > A montagem do circuito é a **primeira etapa de cada parte** e vai crescendo ao longo da
 > atividade.
@@ -47,6 +49,7 @@ isso:
 | Ativ. 1 · Parte 3 | luz automática + calibração | 20 min |
 | Ativ. 2 · Parte 1 | montar ultrassônico + distância | 25 min |
 | Ativ. 2 · Parte 2 | potenciômetro + LED piscando | 30 min |
+| Ativ. 3 | 5 LEDs + sequência em loop | 30–40 min |
 
 Cabe em ~2h ou em duas aulas (1: Atividade 1; 2: Atividade 2).
 
@@ -62,6 +65,7 @@ Cabe em ~2h ou em duas aulas (1: Atividade 1; 2: Atividade 2).
 | Protoboard + jumpers | — | tudo |
 | **LED** + resistor 220–330 Ω | pino 13 | Ativ. 1 |
 | **LED** + resistor 220–330 Ω | pino 8 | Ativ. 2 (P2) |
+| **5 LEDs** + resistores 220–330 Ω | pinos 2, 3, 4, 5, 6 | Ativ. 3 |
 | **LDR** + resistor 10 kΩ | A0 (divisor) | Ativ. 1 (P2–P3) |
 | **HC-SR04** (ultrassônico) | TRIG=9, ECHO=10, VCC=5V, GND | Ativ. 2 (P1) |
 | **Potenciômetro** 10 kΩ | A1 (meio); 5V e GND (pontas) | Ativ. 2 (P2) |
@@ -93,6 +97,7 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
 
 - Atividade 1: `sketches/atividade1/atividade1.ino`
 - Atividade 2: `sketches/atividade2/atividade2.ino`
+- Atividade 3: `sketches/atividade3/atividade3.ino`
 
 ### 5. ⚠️ Teste antes, num PC do IFSP
 
@@ -113,6 +118,8 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
   "só enviar quando muda de estado" evita inundar a porta.
 - **Atividade 2:** o piscar é feito **pela página** (alterna `1`/`0` a cada 200 ms). Bom
   momento para falar de "limiar" e de mapear o potenciômetro (0–1023) para centímetros.
+- **Atividade 3:** a página guarda a sequência e a percorre em loop; o `% seq.length` é o que
+  faz a contagem "dar a volta". O Arduino recebe um mapa de 5 dígitos por passo (ex.: `10110`).
 - **Conceito-chave para fechar:** sem Wi-Fi, os dados vêm pela **USB/Serial**; quem mostra a
   página é o **computador (navegador)**, não o Arduino.
 
@@ -138,7 +145,8 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
 aula-robotica-web/
 ├── sketches/
 │   ├── atividade1/atividade1.ino     # LDR -> JSON; LED no pino 13 <- '1'/'0'
-│   └── atividade2/atividade2.ino     # ultrassônico+pot -> JSON; LED <- '1'/'0'
+│   ├── atividade2/atividade2.ino     # ultrassônico+pot -> JSON; LED <- '1'/'0'
+│   └── atividade3/atividade3.ino     # 5 LEDs <- mapa "10110"
 ├── web/                              # páginas (Web Serial — Chrome/Edge)
 │   ├── style.css                     # estilo compartilhado
 │   ├── serial.js                     # ajudante: conectarArduino() e enviarComando()
@@ -146,10 +154,13 @@ aula-robotica-web/
 │   ├── atividade1-parte1.html        # botão liga/desliga o LED
 │   ├── atividade1-parte2.html        # mostra o valor do LDR
 │   ├── atividade1-parte3.html        # luz automática + calibração
-│   ├── atividade2-parte1.html        # mostra a distância
-│   └── atividade2-parte2.html        # potenciômetro ajusta o alarme (LED pisca)
+│   ├── atividade2-parte1.html        # mostra a distância (gráfico)
+│   ├── atividade2-parte2.html        # potenciômetro ajusta o alarme (LED pisca)
+│   ├── atividade3.html               # sequenciador: 5 LEDs em loop
+│   └── chart.umd.min.js              # Chart.js (cópia local, offline)
 ├── ATIVIDADE-1.md                    # handout do aluno (Entregas 1.1–1.3)
 ├── ATIVIDADE-2.md                    # handout do aluno (Entregas 2.1–2.3)
+├── ATIVIDADE-3.md                    # handout do aluno (Entregas 3.1–3.3)
 ├── FOLHA-DE-ENTREGA.md               # folha para o grupo entregar
 ├── GABARITO.md                       # respostas (NÃO vai pro GitHub — .gitignore)
 ├── PLANO-DA-AULA.md                  # este guia

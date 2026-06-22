@@ -70,3 +70,33 @@ ______________________________________________________
 ______________________________________________________
 \
 \
+
+---
+
+# Atividade 3 — Sequência de LEDs
+
+### Entrega 3.1 — 📸 Os 5 LEDs acesos ao mesmo tempo (preset "Pisca tudo")
+
+\
+\
+\
+
+### Entrega 3.2 — 📸 A sua sequência (a grade) + foto dos LEDs no loop
+
+Descreva o efeito que você criou:
+
+Resposta: ______________________________________________
+\
+\
+
+### Entrega 3.3 — ✍️ Sobre o loop e a velocidade
+
+(a) O que acontece quando o loop chega no último passo?
+
+______________________________________________________
+
+(b) O que muda ao diminuir o número da velocidade (ms por passo)?
+
+______________________________________________________
+\
+\
