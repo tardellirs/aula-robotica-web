@@ -15,7 +15,7 @@
   <div class="placar">Pontos: <b id="pontos">0</b> &nbsp;·&nbsp; Velocidade: <span id="velTxt">180</span> ms</div>
 
   <div class="jogo">
-    <canvas id="tela" width="360" height="360"></canvas>
+    <canvas id="tela" width="500" height="500"></canvas>
   </div>
 
   <div class="legenda">
@@ -46,17 +46,20 @@
 
   <script src="serial.js"></script>
   <script>
-    const GRID = 18, CELL = 20;                 // tabuleiro 18x18, cada célula 20px
-    const ctx = document.getElementById("tela").getContext("2d");
+    const GRID = 20, CELL = 25;                 // tabuleiro 20x20, célula 25px (500x500)
+    const canvas = document.getElementById("tela");
     const LARG = GRID * CELL;
+    canvas.width = canvas.height = LARG;        // garante o tamanho da tela
+    const ctx = canvas.getContext("2d");
 
     let cobra, dir, prox, comida, pontos, estado, velocidade, timer;
 
     function aleatorio(n) { return Math.floor(Math.random() * n); }
 
     function reset() {
-      cobra = [{ x: 9, y: 9 }, { x: 8, y: 9 }, { x: 7, y: 9 }];  // 3 quadradinhos
-      dir = { x: 1, y: 0 }; prox = { x: 1, y: 0 };               // andando p/ a direita
+      const c = Math.floor(GRID / 2);                           // começa no centro do tabuleiro
+      cobra = [{ x: c, y: c }, { x: c - 1, y: c }, { x: c - 2, y: c }];  // 3 quadradinhos
+      dir = { x: 1, y: 0 }; prox = { x: 1, y: 0 };              // andando p/ a direita
       pontos = 0; estado = "jogando";
       novaComida();
     }

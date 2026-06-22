@@ -146,7 +146,6 @@ Cada Arduino precisa do sketch da atividade carregado (Arduino IDE → abrir o `
 | Página "travou" ao reconectar | Atualize (F5) e clique em Conectar de novo. |
 | Ativ. 4: `Keypad.h: No such file` ao compilar | Falta instalar a biblioteca **Keypad** (Gerenciar Bibliotecas). |
 | Ativ. 4: direções trocadas / teclas erradas | Ordem dos 8 pinos invertida. Confira 9,8,7,6,5,4,3,2 da esquerda p/ a direita. |
-| Ativ. 4: uma **linha ou coluna inteira** morta no Monitor Serial (ex.: `1 4 7 *` não respondem) | O fio daquela linha/coluna está solto, **ou o teclado tem defeito**. Teste no Monitor Serial; se reencaixar o fio não resolver, **troque o teclado** (tenha unidades reserva). |
 
 ---
 
